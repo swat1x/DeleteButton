@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "deletebutton",
+  "version": "${version}",
+  "name": "DeleteButton",
+  "description": "",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/swat1x/DeleteButton"
+  },
+  "license": "MIT",
+  "icon": "assets/DeleteButton.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "ru.swat1x.deletebutton.client.DeleteButtonClientInitializer"
+    ],
+    "main": [
+      "ru.swat1x.deletebutton.DeleteButton"
+    ]
+  },
+  "mixins": [
+    "deletebutton.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": ">=${minecraft_version}"
+  }
+}
