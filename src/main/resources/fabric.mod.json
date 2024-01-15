@@ -13,7 +13,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "ru.swat1x.deletebutton.client.DeleteButtonClientInitializer"
+      "ru.swat1x.deletebutton.client.DeleteButtonClient"
     ],
     "main": [
       "ru.swat1x.deletebutton.DeleteButton"

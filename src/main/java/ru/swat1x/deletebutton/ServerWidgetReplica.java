@@ -1,8 +1,9 @@
 package ru.swat1x.deletebutton;
 
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerServerListWidget;
+import lombok.Getter;
 import net.minecraft.client.network.ServerInfo;
 
+@Getter
 public class ServerWidgetReplica {
 
   private final ServerInfo serverInfo;
@@ -18,18 +19,6 @@ public class ServerWidgetReplica {
   public void update(int x, int y) {
     this.x = x;
     this.y = y;
-  }
-
-  public ServerInfo getServerInfo() {
-    return serverInfo;
-  }
-
-  public int getX() {
-    return x;
-  }
-
-  public int getY() {
-    return y;
   }
 
   public boolean isMouseOnButton(double mouseX,

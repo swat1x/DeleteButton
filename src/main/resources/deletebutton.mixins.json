@@ -7,7 +7,6 @@
   ],
   "client": [
     "MultiplayerScreenMixin",
-    "MultiplayerServerListWidgetMixin",
     "ServerEntryMixin"
   ],
   "injectors": {

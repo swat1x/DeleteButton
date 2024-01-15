@@ -12,20 +12,22 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import ru.swat1x.deletebutton.DeleteButton;
+import ru.swat1x.deletebutton.config.screen.MaterialSelectScreen;
 
 @Mixin(MultiplayerScreen.class)
 public abstract class MultiplayerScreenMixin extends Screen {
 
+  @Unique
   private static final Logger logger = LoggerFactory.getLogger("DeleteButton");
 
   @Shadow
   public abstract ServerList getServerList();
 
-  @Shadow protected abstract void refresh();
+  @Shadow
+  public abstract void select(MultiplayerServerListWidget.Entry entry);
 
-  @Shadow public abstract void select(MultiplayerServerListWidget.Entry entry);
-
-  @Shadow protected MultiplayerServerListWidget serverListWidget;
+  @Shadow
+  protected MultiplayerServerListWidget serverListWidget;
 
   protected MultiplayerScreenMixin(Text title) {
     super(title);
@@ -34,15 +36,21 @@ public abstract class MultiplayerScreenMixin extends Screen {
   // Click hook!
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int button) {
+//    if (DeleteButton.getInstance().getConfig().isEnabled()) {
     for (var widget : DeleteButton.ACTUAL_SERVER_WIDGETS) {
       if (widget.isMouseOnButton(mouseX, mouseY)) {
-        var serverInfo = widget.getServerInfo();
-        select(null);
-        removeServer(serverInfo);
-        serverListWidget.setServers(getServerList());
-        logger.info("Server {} ({}) removed via DeleteButton", serverInfo.name, serverInfo.address);
+        if (Screen.hasShiftDown() || Screen.hasControlDown()) {
+          client.setScreen(new MaterialSelectScreen(this));
+        } else {
+          var serverInfo = widget.getServerInfo();
+          select(null);
+          removeServer(serverInfo);
+          serverListWidget.setServers(getServerList());
+          logger.info("Server {} ({}) removed via DeleteButton", serverInfo.name, serverInfo.address);
+        }
       }
     }
+//    }
     return super.mouseClicked(mouseX, mouseY, button);
   }
 
